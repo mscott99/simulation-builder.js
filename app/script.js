@@ -64,7 +64,7 @@ var base ={
 		}
 		drawing.stroke();
 	}
-}
+};
 	
 	base.grid(300,300,250,200,20,5,20);
 
@@ -83,13 +83,13 @@ Point.prototype.convert= function(){
 		x:this.x*canvas.clientWidth/(this.depth+canvas.clientWidth)+canvas.clientWidth/2,
 		y:this.y*canvas.clientHeight/(this.depth+canvas.clientHeight)+canvas.clientHeight/2,
 		isConverted:true
-		}
-}
+		};
+};
 
 //this is used when we only want to draw one point: not very often
 Point.prototype.draw = function(){
 	base.point(this.x*canvas.clientWidth/(this.depth+canvas.clientWidth)+canvas.clientWidth/2,this.y*canvas.clientHeight/(this.depth+canvas.clientHeight)+canvas.clientHeight/2);
-}
+};
 //this function can take in two points or four coordinates. If called in two points,  enter twoPoints as true
 
 
@@ -111,14 +111,14 @@ Line.prototype.convert= function(){
 		point2:this.point2.convert(),
 		isConverted :true
 			
-		}
-}
+		};
+};
 
 Line.prototype.draw = function(){
 	var pointa =this.point1.convert();
 	var pointb = this.point2.convert();
 	base.line(pointa.x,pointa.y,pointb.x,pointb.y);
-}
+};
 
 var dot = new Point(5,10,0);
 var point1 = new Point(20,20,0);
