@@ -66,29 +66,29 @@ var base ={
 	}
 }
 	
-	base.grid(300,300,250,200,20,5,20);
+	
 
 
 
-function Point(x,y,depth){
+function Point(x,y,z){
 	
 	this.x = x;
 	this.y = y;
-	this.depth = depth;
+	this.z = z;
 	this.isConverted = false;
 }
 
 Point.prototype.convert= function(){
 	return{
-		x:this.x*canvas.clientWidth/(this.depth+canvas.clientWidth)+canvas.clientWidth/2,
-		y:this.y*canvas.clientHeight/(this.depth+canvas.clientHeight)+canvas.clientHeight/2,
+		x:this.x*canvas.clientWidth/(this.z+canvas.clientWidth)+canvas.clientWidth/2,
+		y:this.y*canvas.clientHeight/(this.z+canvas.clientHeight)+canvas.clientHeight/2,
 		isConverted:true
 		}
 }
 
 //this is used when we only want to draw one point: not very often
 Point.prototype.draw = function(){
-	base.point(this.x*canvas.clientWidth/(this.depth+canvas.clientWidth)+canvas.clientWidth/2,this.y*canvas.clientHeight/(this.depth+canvas.clientHeight)+canvas.clientHeight/2);
+	base.point(this.x*canvas.clientWidth/(this.z+canvas.clientWidth)+canvas.clientWidth/2,this.y*canvas.clientHeight/(this.z+canvas.clientHeight)+canvas.clientHeight/2);
 }
 //this function can take in two points or four coordinates. If called in two points,  enter twoPoints as true
 
@@ -119,15 +119,20 @@ Line.prototype.draw = function(){
 	var pointb = this.point2.convert();
 	base.line(pointa.x,pointa.y,pointb.x,pointb.y);
 }
+//point1 is linked to point 2 which is linked to point 3
+function Grid(point1,point2,point3, linesBetweenPoint1_Point2, linesBetweenPoint2_Point3){
+	this.mainPoints={point1,point2,point3};
+	//this line makes a fictionnal center point of the figure, then takes the difference with point 2 and adds it on to its own value(of the center point)
+	this.point4 = new Point(point1.x+point3.x-this.point2.x,point1.y+point3.y-this.point2.y, point1.z+point3.z-this.point2.z);
+	var coefficientx = (point1.x-point2.x)/(linesBetweenPoint1_Point2+1);
+	var coefficienty = (point1.y-point2.y)/(linesBetweenPoint1_Point2+1);
+	var coefficientz = (point1.z-point2.z)/(linesBetweenPoint1_Point2+1);
+	this.points[][];
+for(x=0;x<)
+}
 
-var dot = new Point(5,10,0);
-var point1 = new Point(20,20,0);
-var point2 = new Point(20,20,10000);
-var line1 = new Line(point1,point2,0,0,0,0,true);
-var line2D = line1.convert();
-base.drawGivenLine(line2D);
+
 base.inputScale();
-
 
 
 
