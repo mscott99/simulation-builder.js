@@ -64,7 +64,7 @@ var base ={
 		}
 		drawing.stroke();
 	}
-};
+}
 	
 	
 
@@ -83,18 +83,13 @@ Point.prototype.convert= function(){
 		x:this.x*canvas.clientWidth/(this.z+canvas.clientWidth)+canvas.clientWidth/2,
 		y:this.y*canvas.clientHeight/(this.z+canvas.clientHeight)+canvas.clientHeight/2,
 		isConverted:true
-		};
-};
+		}
+}
 
 //this is used when we only want to draw one point: not very often
 Point.prototype.draw = function(){
-<<<<<<< HEAD
 	base.point(this.x*canvas.clientWidth/(this.z+canvas.clientWidth)+canvas.clientWidth/2,this.y*canvas.clientHeight/(this.z+canvas.clientHeight)+canvas.clientHeight/2);
 }
-=======
-	base.point(this.x*canvas.clientWidth/(this.depth+canvas.clientWidth)+canvas.clientWidth/2,this.y*canvas.clientHeight/(this.depth+canvas.clientHeight)+canvas.clientHeight/2);
-};
->>>>>>> a712258a6ab151c5c6179304ab7c60e01dba172a
 //this function can take in two points or four coordinates. If called in two points,  enter twoPoints as true
 
 
@@ -116,14 +111,13 @@ Line.prototype.convert= function(){
 		point2:this.point2.convert(),
 		isConverted :true
 			
-		};
-};
+		}
+}
 
 Line.prototype.draw = function(){
 	var pointa =this.point1.convert();
 	var pointb = this.point2.convert();
 	base.line(pointa.x,pointa.y,pointb.x,pointb.y);
-<<<<<<< HEAD
 }
 //point1 is linked to point 2 which is linked to point 3
 function Grid(point1,point2,point3, linesBetweenPoint1_Point2, linesBetweenPoint2_Point3){
@@ -136,9 +130,6 @@ function Grid(point1,point2,point3, linesBetweenPoint1_Point2, linesBetweenPoint
 	this.points[][];
 for(x=0;x<)
 }
-=======
-};
->>>>>>> a712258a6ab151c5c6179304ab7c60e01dba172a
 
 
 base.inputScale();
