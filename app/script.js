@@ -121,17 +121,27 @@ Line.prototype.draw = function(){
 }
 //point1 is linked to point 2 which is linked to point 3
 function Grid(point1,point2,point3, linesBetweenPoint1_Point2, linesBetweenPoint2_Point3){
-	this.mainPoints={point1,point2,point3};
+	this.mainPoints=[point1,point2,point3];
 	//this line makes a fictionnal center point of the figure, then takes the difference with point 2 and adds it on to its own value(of the center point)
-	this.point4 = new Point(point1.x+point3.x-this.point2.x,point1.y+point3.y-this.point2.y, point1.z+point3.z-this.point2.z);
-	var coefficientx = (point1.x-point2.x)/(linesBetweenPoint1_Point2+1);
-	var coefficienty = (point1.y-point2.y)/(linesBetweenPoint1_Point2+1);
-	var coefficientz = (point1.z-point2.z)/(linesBetweenPoint1_Point2+1);
-	this.points[][];
-for(x=0;x<)
+	this.mainPoints[3] = new Point(point1.x+point3.x-point2.x,point1.y+point3.y-point2.y, point1.z+point3.z-point2.z);
+	
+	var order =[[0,1][3,2][3,0][2,1]];
+	for(var x=0; x<4;x++){
+		var origin = order[x][0];
+		var goal = order[x][1];
+	var coefficientx = (this.mainPoints[goal].x-this.mainPoints[origin].x)/(linesBetweenPoint1_Point2+1);
+	var coefficienty = (this.mainPoints[goal].y-this.mainPoints[origin].y)/(linesBetweenPoint1_Point2+1);
+	var coefficientz = (this.mainPoints[goal].z-this.mainPoints[origin].z)/(linesBetweenPoint1_Point2+1);
+	if(x==0 || x==1){
+		var numLines = linesBetweenPoint1_Point2;
+	}else{
+		var numLines = linesBetweenPoint2_Point3;
+	}
+	for(var l=0;l<numLines;l++){
+	this.minorPoints[x][l]=new Point(coefficientx*(l+1),coefficienty*(l+1), coefficientz*(l+1));
+	}
 }
-
-
+}
 base.inputScale();
 
 
