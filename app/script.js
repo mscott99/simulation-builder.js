@@ -192,7 +192,7 @@ var point5 = new Point(150,-200,200);
 var point6 = new Point(100,-25, 200);
 var line = new Line(point1,point2,0,0,0,0,true);
 
-
+//comment
 var grid1 = new Grid(point1,point2,point3,4,4);
 var grid2 = new Grid(point2, point3, point4,4,4);
 var grid3 = new Grid(point1,point6, point5, 4, 4);
