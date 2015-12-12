@@ -175,13 +175,18 @@ function Grid(point1,point2,point3, linesBetweenPoint1_Point2, linesBetweenPoint
 		
 		
 }
-var point1 = new Point(100,200,0);
-var point2 = new Point(-100,200,0);
-var point3 = new Point(-100,200,700);
+var point1 = new Point(100, 50,10);
+var point2 = new Point(-100,50,10);
+var point3 = new Point(-100,-25,200);
+var point4 = new Point(-150, -200,200);
+var point5 = new Point(150,-200,200);
+var point6 = new Point(100,-25, 200);
 var line = new Line(point1,point2,0,0,0,0,true);
 
 
-var grid1 = new Grid(point1,point2,point3,5,7);
+var grid1 = new Grid(point1,point2,point3,4,4);
+var grid2 = new Grid(point2, point3, point4,4,4);
+var grid3 = new Grid(point1,point6, point5, 4, 4);
 
 
 
