@@ -175,6 +175,15 @@ function Grid(point1,point2,point3, linesBetweenPoint1_Point2, linesBetweenPoint
 		
 		
 }
+
+function Triangle(grid, linkedPoint1,linkedPoint2, definerPoint){
+	this.mainPoints = [grid.mainPoints[0], grid.mainPoints[1], definerPoint];
+	this.mainLines = [new Line(this.mainPoints[0],this.mainPoints[1],0,0,0,0,true),new Line(this.mainPoints[1],this.mainPoints[2],0,0,0,0,true),new Line(this.mainPoints[2],this.mainPoints[0],0,0,0,0,true)]
+	for(var x = 0; x<3; x++){
+		this.mainLines[x].draw();
+	}
+}//left to do on triangles: append them completely to surface, apend them with the same angle, without outside borders, and make plane constructor class
+
 var point1 = new Point(100, 50,10);
 var point2 = new Point(-100,50,10);
 var point3 = new Point(-100,-25,200);
@@ -187,8 +196,8 @@ var line = new Line(point1,point2,0,0,0,0,true);
 var grid1 = new Grid(point1,point2,point3,4,4);
 var grid2 = new Grid(point2, point3, point4,4,4);
 var grid3 = new Grid(point1,point6, point5, 4, 4);
-
-
+var trianglePoint = new Point(0,0,-5);
+var triangle = new Triangle(grid1,0,1,trianglePoint);
 
 
 
