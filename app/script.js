@@ -184,6 +184,20 @@ function Triangle(grid, linkedPoint1,linkedPoint2, definerPoint){
 	}
 }//left to do on triangles: append them completely to surface, apend them with the same angle, without outside borders, and make plane constructor class
 
+function TriangleExtentionPoint(x,z,shape){
+	var planePoint1 = shape.mainPoints[0];
+	var planePoint2 = shape.mainPoints[1];
+	var planePoint3 = shape.mainPoints[2];
+	//in equation ax + bz +cy + d = 0
+	var a = (planePoint2.z - planePoint1.z)*(planePoint3.y-planePoint1.y)-(planePoint3.z-planePoint1.z)*(planePoint2.y-planePoint1.y);
+	var b = (planePoint2.y - planePoint1.y)*(planePoint3.x-planePoint1.x)-(planePoint3.y-planePoint1.y)*(planePoint2.x-planePoint1.x);
+	var c = (planePoint2.x-planePoint1.x)*(planePoint3.z-planePoint1.z)-(planePoint3.x - planePoint1.x)*(planePoint2.z-planePoint1.z);
+	var d = -(a*planePoint1.x + b*planePoint1.z + c*planePoint1.y);
+	var Y = -(a*x + b*z+d)/c;
+	
+	return new Point(x,Y,z);
+}
+
 var point1 = new Point(100, 50,10);
 var point2 = new Point(-100,50,10);
 var point3 = new Point(-100,-25,200);
@@ -197,7 +211,8 @@ var grid1 = new Grid(point1,point2,point3,4,4);
 var grid2 = new Grid(point2, point3, point4,4,4);
 var grid3 = new Grid(point1,point6, point5, 4, 4);
 var trianglePoint = new Point(0,0,-5);
-var triangle = new Triangle(grid1,0,1,trianglePoint);
+var alignedPoint = TriangleExtentionPoint(trianglePoint.x,trianglePoint.z,grid1);
+var triangle = new Triangle(grid1,0,1,alignedPoint);
 
 
 
