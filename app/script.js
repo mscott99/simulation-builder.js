@@ -171,14 +171,55 @@ function Grid(point1,point2,point3, linesBetweenPoint1_Point2, linesBetweenPoint
 			this.lines[1][m].draw();
 		}
 		
+		this.findArray = function(point1, point2){
+			
+			for(var array in this.minorPoints){
+				
+					if(array[0] == point1 && array[array.length-1]==point2){
+						return array;
+					
+					}
+					else if(array[0] == point2 && array[array.length - 1]==point1){
+						return array.reverse();
+					}
+			}
+		}
+		this.complementary = function(point){
+			switch(point){
+				case 0: return 1;
+				case 1: return 0;
+				case 2: return 3;
+				case 3: return 2;
+			}
+		}
 		
-		
-		
+		this.findComplementaryArray = function(array){
+			for(x=0;x<4;x++){
+				if(this.minorPoints[x] == array){
+					return this.minorPoints[this.complementary(x)]	
+				}
+				else if(this.minorPoints[x].reverse() == array){
+					return this.minorPoints[this.complementary(x)].reverse();
+				}
+			}
+		}
 }
 
+var smallestOf = function(first, second){
+	if(first<=second){
+		return first;
+		
+	}else{
+		return second;
+	}
+}
+
+
 function Triangle(grid, linkedPoint1,linkedPoint2, definerPoint){
-	this.mainPoints = [grid.mainPoints[0], grid.mainPoints[1], definerPoint];
+	this.mainPoints = [grid.mainPoints[linkedPoint1], grid.mainPoints[linkedPoint2], definerPoint];
 	this.mainLines = [new Line(this.mainPoints[0],this.mainPoints[1],0,0,0,0,true),new Line(this.mainPoints[1],this.mainPoints[2],0,0,0,0,true),new Line(this.mainPoints[2],this.mainPoints[0],0,0,0,0,true)]
+	this.baseMinorPoints = grid.findArray(linkedPoint1,linkedPoint2);
+	var complementaries = grid.findComplementaryArray(this.baseMinorPoints);
 	for(var x = 0; x<3; x++){
 		this.mainLines[x].draw();
 	}
