@@ -97,9 +97,11 @@ function Line(x1,y1,z1,x2,y2,z2, fromTwoPoints){
 	if(fromTwoPoints){
 		this.point1=x1;
 		this.point2 = y1;
+		this.mainPoints = [x1, y1];
 }else{
 	this.point1 = new Point(x1,y1,z1);
 	this.point2 = new Point(x2,y2,z2);
+	this.mainPoints = [this.point1, this.point2];
 }
 	
 }
@@ -170,18 +172,25 @@ function Grid(point1,point2,point3, linesBetweenPoint1_Point2, linesBetweenPoint
 			this.lines[1][m] = new Line(this.minorPoints[2][m],this.minorPoints[3][m],0,0,0,0,true);
 			this.lines[1][m].draw();
 		}
-		
+		//function is not working
 		this.findArray = function(point1, point2){
-			
-			for(var array in this.minorPoints){
-				
-					if(array[0] == point1 && array[array.length-1]==point2){
-						return array;
+			var isLinked = false;
+			for(var arrays in this.minorPoints){
+				for(var array in arrays){
 					
-					}
-					else if(array[0] == point2 && array[array.length - 1]==point1){
-						return array.reverse();
-					}
+						if(array[0].equals(point1) && array[array.length-1].equals(point2)){
+							isLinked = true;
+							return array;
+						
+						}
+						else if(array[0] == point2 && array[array.length - 1]==point1){
+							isLinked = true;
+							return array.reverse();
+						}
+				}
+			}
+			if(isLinked ==false){
+				alert("There is no array of points between the two entered points");
 			}
 		}
 		this.complementary = function(point){
@@ -218,10 +227,19 @@ var smallestOf = function(first, second){
 function Triangle(grid, linkedPoint1,linkedPoint2, definerPoint){
 	this.mainPoints = [grid.mainPoints[linkedPoint1], grid.mainPoints[linkedPoint2], definerPoint];
 	this.mainLines = [new Line(this.mainPoints[0],this.mainPoints[1],0,0,0,0,true),new Line(this.mainPoints[1],this.mainPoints[2],0,0,0,0,true),new Line(this.mainPoints[2],this.mainPoints[0],0,0,0,0,true)]
-	this.baseMinorPoints = grid.findArray(linkedPoint1,linkedPoint2);
-	var complementaries = grid.findComplementaryArray(this.baseMinorPoints);
+	
+	
 	for(var x = 0; x<3; x++){
 		this.mainLines[x].draw();
+	}
+	//function may be working, function used do not work
+	this.badassLines= function(grid){
+		var borderPoints = grid.findArray(this.mainPoints[0],this.mainPoints[1]);
+		this.lines;
+		for(var z = 0; z< borderPoints.length; z++){
+			this.lines.add(new Line(borderPoints[z], this.mainPoints[2],0,0,0,0,true));
+			this.lines[z].draw();
+		}
 	}
 }//left to do on triangles: append them completely to surface, apend them with the same angle, without outside borders, and make plane constructor class
 
@@ -239,11 +257,54 @@ function TriangleExtentionPoint(x,z,shape){
 	return new Point(x,Y,z);
 }
 
-var point1 = new Point(100, 50,10);
-var point2 = new Point(-100,50,10);
-var point3 = new Point(-100,-25,200);
-var point4 = new Point(-150, -200,200);
-var point5 = new Point(150,-200,200);
+function Cube(point1, distance, lines){
+	var pointA = new Point(point1.x-distance,point1.y, point1.z);
+	var pointB = new Point(point1.x,point1.y+distance, point1.z);
+	var pointC = new Point(point1.x,point1.y, point1.z+distance);
+	var pointD = new Point(point1.x-distance,point1.y + distance, point1.z);
+	var pointE = new Point(point1.x-distance,point1.y, point1.z+distance);
+	var pointF = new Point(point1.x,point1.y + distance, point1.z+distance);
+	var pointG = new Point(point1.x-distance,point1.y + distance, point1.z+distance);
+	
+	
+	this.grids = [new Grid(pointA,point1, pointB, lines,lines),
+					new Grid(point1, pointC, pointF, lines, lines),
+					new Grid(pointC, point1, pointA, lines, lines),
+					new Grid(pointC, pointE, pointG, lines, lines),
+					new Grid(pointA,pointD, pointG,lines,lines),
+					new Grid(pointF, pointG,pointD, lines, lines)]	
+						
+}
+function Vector(x,y,z){
+	this.x = x;
+	this.y = y;
+	this.z = z;
+	this.drawFromOrigin = function(){
+		(new Line(0,100,0,x,y+100,z, false)).draw();
+	}
+	this.norm = function(){
+		return Math.sqrt(this.x^2+this.y^2+this.z^2);
+	}
+	
+}
+var produitVectoriel = function(vector1,vector2){
+	return new Vector(vector1.y*vector2.z-vector1.z*vector2.y,   vector1.z*vector2.x-vector1.x*vector2.z,   vector1.x*vector2.y-vector1.y*vector2.x);
+}
+var produitVecteur = function(vector, coefficient){
+	return new Vector(vector.x*coefficient,vector.y*coefficient,vector.z*coefficient)
+}
+
+
+var origin = new Point(500,500,1000);
+var cube = new Cube(origin,500,30);
+
+
+/*
+var point1 = new Point(0, 0,0);
+var point2 = new Point(100,0,0);
+var point3 = new Point(100,-100,0);
+var point4 = new Point(0, -100,0);
+var point5 = new Point(0,0,100);
 var point6 = new Point(100,-25, 200);
 var line = new Line(point1,point2,0,0,0,0,true);
 
@@ -253,7 +314,13 @@ var grid2 = new Grid(point2, point3, point4,4,4);
 var grid3 = new Grid(point1,point6, point5, 4, 4);
 var trianglePoint = new Point(0,0,-5);
 var alignedPoint = TriangleExtentionPoint(trianglePoint.x,trianglePoint.z,grid1);
-var triangle = new Triangle(grid1,0,1,alignedPoint);
+var triangle = new Triangle(grid1,0,1,trianglePoint);
+triangle.badassLines(grid1);
+var randomLine = new Line(500,500,500,-300,200,100, false);
+randomLine.draw();
+var trianglePoint = new Point(-350,200,1000);
+var triangle = new Triangle(grid1,1,3,trianglePoint);
+*/
 
 
 
