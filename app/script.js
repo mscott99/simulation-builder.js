@@ -9,6 +9,10 @@ var drawing = canvas.getContext("2d");
 //drawing.arc(100,100,50,3,4);
 
 var base ={
+    background: function(){
+      drawing.fillStyle= "#5bd75b";
+    drawing.fillRect(0,0,canvas.clientWidth,canvas.clientHeight);  
+    },
 	inputScale: function(){
 		base.line(canvas.clientWidth/2,0,canvas.clientWidth/2,canvas.clientHeight);
 		base.line(0,canvas.clientHeight/2,canvas.clientWidth,canvas.clientWidth/2);
@@ -293,10 +297,44 @@ var produitVectoriel = function(vector1,vector2){
 var produitVecteur = function(vector, coefficient){
 	return new Vector(vector.x*coefficient,vector.y*coefficient,vector.z*coefficient)
 }
+window.addEventListener( 'keydown', doKeyDown, false);
+var height = 700;
+var width = 700;
+var depth = 2000;
+
+function doKeyDown(e) {
+switch(e.keyCode){
+    case 38: height -= 200;
+    break;
+    
+    case 40: height += 200;
+    break;
+    case 37: width-= 200;
+    break;
+    case 39: width += 200;
+    break;
+    case 87: depth += 200;
+    break;
+    
+    case 83: depth -= 200;
+    
+    
+}
+
+ drawing.fillStyle= "#5bd75b";
+    drawing.fillRect(0,0,canvas.clientWidth,canvas.clientHeight); 
+new Cube(new Point(width,height,depth),200,3);
+}
+//base.background();
+//new Cube(new Point(width,height,depth),500,3);
 
 
-var origin = new Point(500,500,1000);
-var cube = new Cube(origin,500,30);
+
+
+
+//new Cube(new Point(width,height,depth),500,3);
+
+
 
 
 /*
@@ -323,4 +361,6 @@ var triangle = new Triangle(grid1,1,3,trianglePoint);
 */
 
 
+
+//event function
 
