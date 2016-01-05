@@ -155,12 +155,12 @@ function Grid(point1,point2,point3, linesBetweenPoint1_Point2, linesBetweenPoint
 				
 				
 				this.minorPoints[x][l]=new Point(this.mainPoints[origin].x+coefficientx*l,this.mainPoints[origin].y+coefficienty*l, this.mainPoints[origin].z+coefficientz*l);
-				this.minorPoints[x][l].draw();
+				
 			
 				
 			}
 		
-			this.mainPoints[x].draw();
+			
 			
 		}
 		
@@ -321,10 +321,11 @@ switch(e.keyCode){
     
 }
 
- drawing.fillStyle= "#5bd75b";
-    drawing.fillRect(0,0,canvas.clientWidth,canvas.clientHeight); 
+
 new Cube(new Point(width,height,depth),200,3);
 }
+ drawing.fillStyle= "#5bd75b";
+    drawing.fillRect(0,0,canvas.clientWidth,canvas.clientHeight); 
 //base.background();
 //new Cube(new Point(width,height,depth),500,3);
 
@@ -344,11 +345,22 @@ var point3 = new Point(100,-100,0);
 var point4 = new Point(0, -100,0);
 var point5 = new Point(0,0,100);
 var point6 = new Point(100,-25, 200);
-var line = new Line(point1,point2,0,0,0,0,true);
 
-//comment
+
+
+ drawing.fillStyle= "#5bd75b";
+    drawing.fillRect(0,0,canvas.clientWidth,canvas.clientHeight); 
 var grid1 = new Grid(point1,point2,point3,4,4);
-var grid2 = new Grid(point2, point3, point4,4,4);
+grid1 = null;
+ drawing.fillStyle= "#5bd75b";
+    drawing.fillRect(0,0,canvas.clientWidth,canvas.clientHeight); 
+// var grid2 = new Grid(point1, point2, point4, 4, 5);   
+    
+    
+//var grid2 = new Grid(point1, point3, point4,4,4);
+/*
+//comment
+
 var grid3 = new Grid(point1,point6, point5, 4, 4);
 var trianglePoint = new Point(0,0,-5);
 var alignedPoint = TriangleExtentionPoint(trianglePoint.x,trianglePoint.z,grid1);
